@@ -1,0 +1,5 @@
+; &id:$
+name = New block
+ description = my_block
+ version = 7.x-dev
+ core = 7.x

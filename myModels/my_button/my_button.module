@@ -1,0 +1,63 @@
+<?php
+function my_button_menu() {
+    return array(
+        'demo/newsletter' => array(
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('my_button_form'),
+            'access callback' => TRUE,
+            'type' => MENU_CALLBACK,
+        ),
+    );
+}
+function my_button_form($form, &$form_state) {
+
+
+    return array(
+        'email' => array(
+            '#type' => 'textfield',
+            '#title' => t('Email'),
+            '#required' => TRUE,
+            '#attributes' => array(
+                'placeholder' => t('mail@example.com'),
+            ),
+        ),
+        'name' => array(
+            '#type' => 'textfield',
+            '#title' => t('Name'),
+            '#required' => TRUE,
+            '#attributes' => array(
+                'placeholder' => t('my name'),
+            ),
+        ),
+        'submit' => array(
+            '#type' => 'submit',
+            '#value' => t('Subscribe'),
+            '#ajax' => array(
+                'callback' => 'my_button_ajax_submit',
+                'wrapper' => 'my_button_form',
+                'method' => 'post',
+                'effect' => 'fade',
+            ),
+        ),
+    );
+}
+function my_button_ajax_submit($form, $form_state) {
+    // Dummy/dumb validation for demo purpose.
+    if (!empty($form_state['input']['email'])) {
+        return 'Subscribed !';
+    }
+    else {
+        return $form;
+    }
+    //if (!empty($form_state['input']['email'])) {
+  //  drupal_set_message("good");
+  //  $mysqli = new mysqli ("localhost","root","","UserBase");
+  //  $result = $mysqli->query("INSERT INTO mytable (`name`,`email`) VALUES('{$form_state['values']['name']}','{$form_state['values']['email']}')");
+
+   // return "asdas";
+   // }
+   // else {
+    //   return $form;
+    //}
+}
+?>

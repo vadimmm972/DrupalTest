@@ -1,0 +1,38 @@
+<?php
+
+function new_block_block_help($path,$arg)
+{
+    switch($path)
+    {
+        case "admin/help#new_post":
+            return '<p>'.t("new block").'</p>';
+            break;
+    }
+}
+
+/**
+ * Implements hook_block_info().
+ * Информация о блоке и дефолтные настройки.
+ */
+
+function new_block_block_info() {
+    $blocks['hello-message'] = array(
+        'info' => t('Message'),
+    );
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ * Генерация заголовка блока и его контента.
+ */
+function new_block_block_view($delta = '') {
+    $block = array();
+
+    if ($delta == 'hello-message') {
+        $block['subject'] = t('Message');
+        $block['content'] = t('Hello World!');
+    }
+
+    return $block;
+}

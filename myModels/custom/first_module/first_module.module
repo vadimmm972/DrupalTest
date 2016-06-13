@@ -1,0 +1,66 @@
+<?php
+
+function first_module_menu() {
+  $items['custom-page']=array(
+    'title' => 'My new model',
+    'description' => 'Listing of blogs.',
+    'page callback' => 'first_module_blog_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+	return $items;
+}
+
+function first_module_blog_page() {
+$form = drupal_get_form('first_module_custom_form');
+return 'first module ' . drupal_render($form);
+}
+
+function first_module_custom_form(){
+$form= array();
+
+$form['name'] = array(
+'#title' => t('Name?'),
+    '#type' => 'textfield',
+    '#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4),
+    '#default_value' => 1,
+);
+	$form['email'] = array(
+		'#title' => t('Email?'),
+		'#type' => 'textfield',
+		'#options' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4),
+		'#default_value' => 1,
+	);
+
+$form['submit'] = array(
+'#type' => 'submit',
+ '#value' => t('Submit'),
+ '#ajax' => array(
+      'callback' => 'ajax_example_autocheckboxes_callback',
+	  ),
+);
+
+return $form;
+}
+
+function ajax_example_autocheckboxes_callback($form, &$form_state) {
+ // return array('ajax_commands' => array(ajax_command_replace('#page-title', 1)));
+	if (!empty($form_state['input']['email'])) {
+		//$mysqli = new mysqli ("localhost","root","","UserBase");
+		$form_state['rebuild']=TRUE;
+		//$result = $mysqli->query("INSERT INTO mytable (`name`,`email`) VALUES('{$form_state['values']['name']}','{$form_state['values']['email']}')");
+		// Return a fully built form that is ready for rendering.
+		return form_rebuild($form, $form_state);
+	}
+	else {
+
+
+		return form_rebuild('edit-name',$form, $form_state);
+	}
+
+//	$form_state['values']['name'] = null;
+	//return"Success";
+	//return array('#type' => 'ajax', '#commands' => $form_state['values']['name']);
+}
+

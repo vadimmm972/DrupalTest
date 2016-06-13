@@ -1,0 +1,3 @@
+name = New Post
+          description = Модуль для вывода последних новостей в блоке
+          core = 7.x
