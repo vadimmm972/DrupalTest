@@ -1,0 +1,14 @@
+name = Specialist
+description = Тема Cpecialist
+package = Core
+version = 0.1
+core = 7.x
+stylesheets[all][] = layout.css
+
+regions[header] = Header
+regions[sidebar_first] = Left sidebar
+regions[sidebar_second] = Right sidebar
+regions[navigation] = Navigation
+regions[content] = Content
+regions[footer] = Footer
+regions[help] = Help
