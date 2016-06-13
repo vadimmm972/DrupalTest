@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 function first_module_menu() {
   $items['custom-page']=array(
@@ -44,19 +44,29 @@ $form['submit'] = array(
 return $form;
 }
 
+/*
+ * db_insert
+ */
+
 function ajax_example_autocheckboxes_callback($form, &$form_state) {
  // return array('ajax_commands' => array(ajax_command_replace('#page-title', 1)));
 	if (!empty($form_state['input']['email'])) {
-		//$mysqli = new mysqli ("localhost","root","","UserBase");
-		$form_state['rebuild']=TRUE;
-		//$result = $mysqli->query("INSERT INTO mytable (`name`,`email`) VALUES('{$form_state['values']['name']}','{$form_state['values']['email']}')");
-		// Return a fully built form that is ready for rendering.
+		$id = db_insert('testtable')
+			->fields(array(
+
+				'name' => $form_state['values']['name'],
+				'email' => $form_state['values']['email'],
+			))
+			->execute();
+		watchdog('sleetmute', "NID  = " . $id);
+
+		$form_state['redirect'] = 'testtable';
 		return form_rebuild($form, $form_state);
 	}
 	else {
 
 
-		return form_rebuild('edit-name',$form, $form_state);
+		return $form;
 	}
 
 //	$form_state['values']['name'] = null;
